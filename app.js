@@ -75,6 +75,17 @@ app.get("/users/:id", async (req, res) => {
   }
 })
 
+app.put("/users/:id", async (req, res) => {
+  try {
+    const user = await getUserById(req.params["id"]);
+    const userUpdate = await user.update(req.body);
+    console.log('PUT user id: ', req.params["id"])
+    res.send(userUpdate);
+  } catch (error) {
+    res.status(500).send('Error find user.')
+  }
+})
+
 app.delete("/users/:id", async (req, res) => {
   try {
     const user = await getUserById(req.params["id"]);
