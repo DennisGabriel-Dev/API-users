@@ -3,8 +3,6 @@ const User = require('./user');
 
 (async () => {
   await database.sync();
-  const usuarios = await User.findAll();
-  console.log(usuarios);
 })();
 
 const express = require("express");
