@@ -21,6 +21,25 @@ async function getUsers() {
   }
 }
 
+async function createUser(userByAPI){
+  try {
+    const name = userByAPI["name"];
+    const type = userByAPI["type"];
+    console.log("CREATE USER:", userByAPI);
+    const user = await User.create({
+      name: name,
+      type: type
+    })
+    return user;
+  } catch (error) {
+    console.error('Error create user:', error);
+    throw error;
+  }
+}
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+
 app.route('/users')
   .get(async (req, res) => {
     try {
@@ -31,7 +50,12 @@ app.route('/users')
     }
   })
   .post(async (req, res) => {
-    console.log(req.params)
+    try{
+      const user = await createUser(req.body);
+      res.send(user)
+    } catch(error){
+      res.status(500).send('Error create user');
+    }
   });
 
 app.listen(port, () => {

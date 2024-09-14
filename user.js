@@ -8,11 +8,11 @@ const User = db.define('user', {
     primaryKey: true,
     autoIncrement: true
   },
-  nome: {
+  name: {
     type: Sequelize.STRING,
     allowNull: null
   },
-  tipo: {
+  type: {
     type: Sequelize.STRING,
     allowNull: false
   }
