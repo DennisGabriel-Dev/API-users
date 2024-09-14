@@ -1,0 +1,21 @@
+{
+  "name": "api-users",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.0",
+    "pg": "^8.12.0",
+    "pg-hstore": "^2.3.4",
+    "pg-promise": "^11.9.1"
+  },
+  "devDependencies": {
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2"
+  }
+}
