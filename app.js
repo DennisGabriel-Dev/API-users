@@ -75,6 +75,18 @@ app.get("/users/:id", async (req, res) => {
   }
 })
 
+app.delete("/users/:id", async (req, res) => {
+  try {
+    const user = await getUserById(req.params["id"]);
+    const userDeleted = await user.destroy();
+    console.log('Destroy user', user);
+    user.message = "Usuário deletado";
+    res.send(user);
+  } catch (error) {
+    res.status(500).send('Error destroy user.')
+  }
+})
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
