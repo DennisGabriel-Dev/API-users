@@ -1,5 +1,6 @@
 const database = require('./db');
 const User = require('./user');
+const cors = require('cors');
 
 (async () => {
   await database.sync();
@@ -47,8 +48,14 @@ async function createUser(userByAPI) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
+app.use(cors());
 
-app.route('/users')
+var corsOptions = {
+  origin: 'http://localhost:5173',
+  optionsSuccessStatus: 200 
+}
+
+app.route('/users', cors(corsOptions))
   .get(async (req, res) => {
     try {
       const users = await getUsers();
@@ -66,7 +73,7 @@ app.route('/users')
     }
   });
 
-app.get("/users/:id", async (req, res) => {
+app.get("/users/:id", cors(corsOptions), async (req, res) => {
   try {
     const user = await getUserById(req.params["id"]);
     res.send(user);
@@ -75,7 +82,7 @@ app.get("/users/:id", async (req, res) => {
   }
 })
 
-app.put("/users/:id", async (req, res) => {
+app.put("/users/:id", cors(corsOptions), async (req, res) => {
   try {
     const user = await getUserById(req.params["id"]);
     const userUpdate = await user.update(req.body);
@@ -86,7 +93,7 @@ app.put("/users/:id", async (req, res) => {
   }
 })
 
-app.delete("/users/:id", async (req, res) => {
+app.delete("/users/:id", cors(corsOptions) ,async (req, res) => {
   try {
     const user = await getUserById(req.params["id"]);
     const userDeleted = await user.destroy();
